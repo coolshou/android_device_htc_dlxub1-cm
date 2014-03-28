@@ -17,5 +17,8 @@
 ## (2) Also get non-open-source specific aspects if available
 $(call inherit-product-if-exists, vendor/htc/dlxub1/dlxub1-vendor.mk)
 
+# overlays
+PRODUCT_PACKAGE_OVERLAYS += device/htc/dlxub1/overlay
+
 # Inherit from msm8960-common
 $(call inherit-product, device/htc/msm8960-common/msm8960.mk)

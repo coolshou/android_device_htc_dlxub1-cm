@@ -58,21 +58,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libnetcmdiface
 
-# NFCEE access control
-ifeq ($(TARGET_BUILD_VARIANT),user)
-    NFCEE_ACCESS_PATH := device/htc/dlxub1/configs/nfcee_access.xml
-else
-    NFCEE_ACCESS_PATH := device/htc/dlxub1/configs/nfcee_access_debug.xml
-endif
+# Misc stuff
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
-    $(NFCEE_ACCESS_PATH):system/etc/nfcee_access.xml \
-    frameworks/base/nfc-extras/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml \
-    frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
-    frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml
-
 
 # QC thernald config
 PRODUCT_COPY_FILES += device/htc/dlxub1/configs/thermald.conf:/system/etc/thermald.conf
@@ -142,23 +132,12 @@ PRODUCT_PACKAGES += \
         libgps.utils \
         gps.msm8960
 
-# NFC
-#PRODUCT_PACKAGES += \
-#    nfc.msm8960 \
-#    libnfc \
-#    libnfc_ndef \
-#    libnfc_jni \
-#    Nfc \
-#    Tag \
-#    com.android.nfc_extras
-
 # Torch
 PRODUCT_PACKAGES += \
     Torch
 
 # We have enough space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
-
 PRODUCT_CHARACTERISTICS := default
 
 # Set build date
