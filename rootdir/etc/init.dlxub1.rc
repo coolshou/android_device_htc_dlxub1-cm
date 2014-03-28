@@ -7,25 +7,31 @@ on init
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell/emulated 0700 shell shell
     mkdir /storage/emulated 0555 root root
+    mkdir /storage/sdcard1 0000 system system
+    mkdir /storage/usb 0000 system system
 
-    mkdir /mnt/media_rw/sdcard2 0700 media_rw media_rw
+    mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
     mkdir /mnt/media_rw/usbdisk 0700 media_rw media_rw
-    mkdir /storage/sdcard2 0700 root root
+    mkdir /storage/sdcard1 0700 root root
     mkdir /storage/usbdisk 0700 root root
 
     export EXTERNAL_STORAGE /storage/emulated/legacy
-    export SECONDARY_STORAGE /storage/sdcard2:/storage/usbdisk
     export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
     export EMULATED_STORAGE_TARGET /storage/emulated
+
+    export EXTERNAL_STORAGE2 /storage/sdcard1
+    export EXTERNAL_STORAGE3 /storage/sdcard1
+    export EXTERNAL_STORAGE4 /storage/usb
+    export EXTERNAL_STORAGE5 /storage/usb
 
     # Support legacy paths
     symlink /storage/emulated/legacy /sdcard
     symlink /storage/emulated/legacy /mnt/sdcard
     symlink /storage/emulated/legacy /storage/sdcard0
     symlink /mnt/shell/emulated/0 /storage/emulated/legacy
-    symlink /storage/sdcard2 /extSdCard
-    symlink /storage/sdcard2 /mnt/extSdCard
-    symlink /storage/sdcard2 /external_sd
+    symlink /mnt/shell/container /storage/container
+    symlink /storage/sdcard1 /sdcard2
+    symlink /storage/usb /mnt/usb
     symlink /storage/usbdisk /usbdisk
     symlink /storage/usbdisk /mnt/usbdisk
 
@@ -57,8 +63,12 @@ on fs
    mkdir /tombstones/dsps 0771 system system
 
    # 8064 has only mdm, use radio partition for it.
+   #mkdir /firmware/mdm 0771 system system
+   #mount vfat /dev/block/mmcblk0p16 /firmware/mdm wait ro shortname=lower
+   #exec /system/bin/sh /init.qcom.firmware_links.sh /firmware/mdm/image /vendor/firmware "*.mbn *.img"
    mkdir /firmware/mdm 0771 system system
-   mount vfat /dev/block/mmcblk0p16 /firmware/mdm wait ro shortname=lower
+   devwait emmc@radio
+   mount vfat emmc@radio /firmware/mdm ro shortname=lower
    exec /system/bin/sh /init.qcom.firmware_links.sh /firmware/mdm/image /vendor/firmware "*.mbn *.img"
 
    # Create symbolic links to mount points outside of /data for qcks
@@ -76,10 +86,6 @@ on fs
    exec /system/bin/sh /init.qcom.firmware_links.sh /firmware/q6 /vendor/firmware "q6.*"
 
    symlink /system/vendor/lib /vendor/lib
-
-   # for NFC
-   symlink /system/vendor/pittpatt /vendor/pittpatt
-   symlink /system/vendor/firmware/libpn544_fw.so /vendor/firmware/libpn544_fw.so
 
 on boot  
     #Create QMUX deamon socket area
@@ -157,21 +163,12 @@ on boot
     mkdir /data/nfc/param 770 nfc nfc
 
     # liblights
-    chown system system /sys/class/leds/green/brightness
-    chown system system /sys/class/leds/green/blink
-    chown system system /sys/class/leds/green/off_timer
-    chown system system /sys/class/leds/amber/brightness
-    chown system system /sys/class/leds/amber/blink
-    chown system system /sys/class/leds/amber/off_timer
     chown system system /sys/class/leds/button-backlight/brightness
+    chown system system /sys/class/leds/lcd-backlight/brightness
+    chown system system /sys/class/leds/indicator/ModeRGB
     chown system system /sys/class/leds/button-backlight/currents
     chown system system /sys/class/leds/lcd-backlight/brightness  
     	
-    # permissions for NFC
-    chmod 0600 /dev/pn544
-    chown nfc nfc /dev/pn544
-    setprop debug.nfc.fw_download "true"
-    setprop debug.nfc.fw_boot_download "false"
 
     # disable L27 S3 static pull down disable
     write /sys/kernel/debug/pm8921-dbg/addr 0x0E3
@@ -290,7 +287,7 @@ service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
 	user root
 	disabled
 
-service kickstart /system/bin/qcks -1 modem_st1 -2 modem_st2 -3 radio_config -4 cdma_record -i /vendor/firmware/
+service kickstart /system/bin/qcks -1 modem_st1 -2 modem_st2 -3 radio_config -4 cdma_record -i /vendor/firmware/ -u
 	class core
 	user root
 	oneshot
@@ -301,7 +298,7 @@ service kickstart /system/bin/qcks -1 modem_st1 -2 modem_st2 -3 radio_config -4 
 service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
     class late_start
 
-service fuse_sdcard2 /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/sdcard2 /storage/sdcard2
+service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
     class late_start
     disabled
 

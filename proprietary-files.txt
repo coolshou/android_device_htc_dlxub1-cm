@@ -94,7 +94,7 @@ lib/libril-qc-qmi-1.so
 vendor/lib/libqc-opt.so
 lib/libchromatix_imx135_hdr.so
 lib/libmm-abl.so
-lib/hw/sensors.dlx.so
+lib/hw/sensors.dlxub1.so
 lib/libmmstillomx.so
 lib/libchromatix_vd6869_video_hdr.so
 lib/libchromatix_imx175_hdr.so

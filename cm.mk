@@ -13,12 +13,13 @@ $(call inherit-product, device/htc/dlxub1/full_dlxub1.mk)
 
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := dlxub1
+PRODUCT_NAME := cm_dlxub1
 PRODUCT_MODEL := HTC Butterfly
 
 # Set build fingerprint / ID / Product Name etc.
 PRODUCT_BUILD_PROP_OVERRIDES += \
 	BUILD_ID=JSS15J \
 	PRODUCT_NAME=dlxub1 \
-	BUILD_FINGERPRINT=htc/htc_asia_wwe/dlxub1:4.3/JSS15J/293608.4:user/release-keys \
-	PRIVATE_BUILD_DESC="3.15.707.4 CL293608 release-keys"
+	BUILD_FINGERPRINT=htc/htc_asia_tw/dlxub1:4.3/JSS15J/279904.9:user/release-keys \
+	PRIVATE_BUILD_DESC="3.12.709.9 CL279904 release-keys"
 
