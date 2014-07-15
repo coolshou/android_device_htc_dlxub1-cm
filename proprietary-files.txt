@@ -14,7 +14,7 @@ etc/firmware/hcheck.b03
 etc/firmware/fw_bcm4334.bin
 etc/firmware/hcheck.mdt
 etc/firmware/hcheck.b00
-etc/firmware/BCM4334B0_002.001.013.0942.0949.hcd
+etc/firmware/BCM4334B0_002.001.013.1352.1458.hcd
 etc/firmware/vidc.mdt
 etc/firmware/vidc.b01
 etc/firmware/hcheck.b02
