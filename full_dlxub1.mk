@@ -38,23 +38,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/init.post_boot.sh:system/etc/init.post_boot.sh
 
-# Recovery
-PRODUCT_PACKAGES += \
-    lpm.rc \
-    charger \
-    choice_fn \
-    offmode_charging \
-    init.recovery.dlxub1.rc
-
-PRODUCT_PACKAGES += \
-    battery_0.png \
-    battery_1.png \
-    battery_2.png \
-    battery_3.png \
-    battery_4.png \
-    battery_fail.png \
-    battery_full.png
-
 PRODUCT_PACKAGES += \
     libnetcmdiface
 
