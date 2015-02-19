@@ -132,10 +132,6 @@ PRODUCT_PACKAGES += \
         libgps.utils \
         gps.msm8960
 
-# Torch
-PRODUCT_PACKAGES += \
-    Torch
-
 # We have enough space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 PRODUCT_CHARACTERISTICS := default
