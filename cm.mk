@@ -20,6 +20,6 @@ PRODUCT_MODEL := HTC Butterfly
 PRODUCT_BUILD_PROP_OVERRIDES += \
 	BUILD_ID=JSS15J \
 	PRODUCT_NAME=dlxub1 \
-	BUILD_FINGERPRINT=htc/htc_asia_tw/dlxub1:4.3/JSS15J/279904.9:user/release-keys \
-	PRIVATE_BUILD_DESC="3.12.709.9 CL279904 release-keys"
+	BUILD_FINGERPRINT=htc/htc_asia_tw/dlxub1:4.4.2/KOT49H/317230.1:user/release-keys \
+	PRIVATE_BUILD_DESC="4.04.709.1 CL317230 release-keys"
 
