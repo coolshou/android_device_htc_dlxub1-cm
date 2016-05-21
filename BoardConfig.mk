@@ -48,8 +48,10 @@ BOARD_KERNEL_BASE := 0x80600000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=dlxub1 user_debug=0
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01800000
-TARGET_KERNEL_CONFIG := cyanogenmod_dlxub1_defconfig
-TARGET_KERNEL_SOURCE := kernel/htc/m7
+#TARGET_KERNEL_CONFIG := cyanogenmod_dlxub1_defconfig
+TARGET_KERNEL_CONFIG := deluxe_ub1_defconfig
+#TARGET_KERNEL_SOURCE := kernel/htc/m7
+TARGET_KERNEL_SOURCE := kernel
 
 # Audio
 BOARD_USES_FLUENCE_INCALL := true
@@ -85,30 +87,31 @@ BOARD_PROVIDES_LIBRIL := true
 include device/qcom/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS += device/htc/dlxub1/sepolicy
 
-BOARD_SEPOLICY_UNION += \
-    akmd.te \
-    device.te \
-    drmserver.te \
-    file_contexts \
-    hcheck.te \
-    healthd.te \
-    init.te \
-    mdm_helper.te \
-    mediaserver.te \
-    mm-qcamerad.te \
-    mpdecision.te \
-    netmgrd.te \
-    property_contexts \
-    qmuxd.te \
-    radio.te \
-    recovery.te \
-    surfaceflinger.te \
-    system_server.te \
-    tee.te \
-    thermal-engine.te \
-    thermald.te \
-    vold.te \
-    wpa.te
+#BOARD_SEPOLICY_UNION is no longer required - all files found in BOARD_SEPOLICY_DIRS are implicitly unioned; please remove from your BoardConfig.mk or other .mk file
+#BOARD_SEPOLICY_UNION += \
+#    akmd.te \
+#    device.te \
+#    drmserver.te \
+#    file_contexts \
+#    hcheck.te \
+#    healthd.te \
+#    init.te \
+#    mdm_helper.te \
+#    mediaserver.te \
+#    mm-qcamerad.te \
+#    mpdecision.te \
+#    netmgrd.te \
+#    property_contexts \
+#    qmuxd.te \
+#    radio.te \
+#    recovery.te \
+#    surfaceflinger.te \
+#    system_server.te \
+#    tee.te \
+#    thermal-engine.te \
+#    thermald.te \
+#    vold.te \
+#    wpa.te
 
 # USB
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
